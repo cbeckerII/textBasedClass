@@ -34,30 +34,89 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
-      
+        Room porchFront, foyerGrand, hallDining, roomSun, study, kitchen, cellar, gardenGrand, graveyard, 
+        mausoleum, hallwayUpstairs, attic, closetStorage, bedroomMaster, bathroomMaster, terrace, bedroomGuest, bathroomGuest;
+       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        porchFront = new Room("outside the main entrance of the university");
+        foyerGrand = new Room("in a lecture theater");
+        hallDining = new Room("in the campus pub");
+        roomSun = new Room("in a computing lab");
+        study = new Room("in the computing admin office");
+        kitchen = new Room ("DUMMY ROOM");
+        cellar = new Room ("DUMMY ROOM");
+        gardenGrand = new Room ("DUMMY ROOM");
+        graveyard = new Room ("DUMMY ROOM");
+        mausoleum = new Room ("DUMMY ROOM");
+        hallwayUpstairs = new Room ("DUMMY ROOM");
+        closetStorage = new Room ("DUMMY ROOM");
+        bedroomMaster = new Room ("DUMMY ROOM");
+        bathroomMaster = new Room ("DUMMY ROOM");
+        terrace = new Room ("DUMMY ROOM");
+        bedroomGuest = new Room ("DUMMY ROOM");
+        bathroomGuest = new Room ("DUMMY ROOM");
+        attic = new Room ("DUMMY ROOM");
         
         // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
-
-        theater.setExit("west", outside);
-
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;  // start game outside
+        porchFront.setExit("north", foyerGrand);
+        
+        foyerGrand.setExit("north east", hallwayUpstairs);
+        foyerGrand.setExit("north west", hallwayUpstairs);
+        foyerGrand.setExit("west", hallDining);
+        foyerGrand.setExit("east", roomSun);
+        
+        hallDining.setExit("east", foyerGrand);
+        hallDining.setExit("north", kitchen);
+        
+        kitchen.setExit("south", hallDining);
+        kitchen.setExit("west", cellar);
+        kitchen.setExit("north", gardenGrand);
+        
+        cellar.setExit("east", kitchen);
+        
+        roomSun.setExit("west", foyerGrand);
+        roomSun.setExit("north", study);
+        
+        study.setExit("south", roomSun);
+        study.setExit("north west", gardenGrand);
+        
+        gardenGrand.setExit("south west", kitchen);
+        gardenGrand.setExit("south east", study);
+        gardenGrand.setExit("east", graveyard);
+        
+        graveyard.setExit("west", gardenGrand);
+        graveyard.setExit("east", mausoleum);
+        
+        mausoleum.setExit("west", graveyard);
+        
+        hallwayUpstairs.setExit("north", closetStorage);
+        hallwayUpstairs.setExit("north east", bedroomMaster);
+        hallwayUpstairs.setExit("up", attic);
+        hallwayUpstairs.setExit("north west", bedroomGuest);
+        hallwayUpstairs.setExit("sout west", foyerGrand);
+        hallwayUpstairs.setExit("south east", foyerGrand);
+        
+        attic.setExit("down", hallwayUpstairs);
+        
+        closetStorage.setExit("south", hallwayUpstairs);
+        
+        bedroomMaster.setExit("south", hallwayUpstairs);
+        bedroomMaster.setExit("east", bathroomMaster);
+        bedroomMaster.setExit("north", terrace);
+        
+        terrace.setExit("south", bedroomMaster);
+        terrace.setExit("down", gardenGrand);
+        
+        bathroomMaster.setExit("west", bedroomMaster);
+        
+        bedroomGuest.setExit("south", hallwayUpstairs);
+        bedroomGuest.setExit("west", bathroomGuest);
+        
+        bathroomGuest.setExit("east", bedroomGuest);
+        
+        
+        
+        currentRoom = porchFront;  // start game outside
     }
 
     /**
