@@ -222,7 +222,19 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
         }
     }
-
+    
+    private void smellThing(Command command)
+    {
+        if (!command.hasSecondWord()){
+            System.out.println("Smell what?");
+            return;
+        }
+        
+        if (currentRoom.equals(porchFront)){
+            System.out.println("Smelly");
+        }
+    }
+    
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
