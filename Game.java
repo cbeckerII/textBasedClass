@@ -38,81 +38,81 @@ public class Game
         mausoleum, hallwayUpstairs, attic, closetStorage, bedroomMaster, bathroomMaster, terrace, bedroomGuest, bathroomGuest;
        
         // create the rooms
-        porchFront = new Room("outside the main entrance of the university");
-        foyerGrand = new Room("in a lecture theater");
-        hallDining = new Room("in the campus pub");
-        roomSun = new Room("in a computing lab");
-        study = new Room("in the computing admin office");
-        kitchen = new Room ("DUMMY ROOM");
-        cellar = new Room ("DUMMY ROOM");
-        gardenGrand = new Room ("DUMMY ROOM");
-        graveyard = new Room ("DUMMY ROOM");
-        mausoleum = new Room ("DUMMY ROOM");
-        hallwayUpstairs = new Room ("DUMMY ROOM");
-        closetStorage = new Room ("DUMMY ROOM");
-        bedroomMaster = new Room ("DUMMY ROOM");
-        bathroomMaster = new Room ("DUMMY ROOM");
-        terrace = new Room ("DUMMY ROOM");
-        bedroomGuest = new Room ("DUMMY ROOM");
-        bathroomGuest = new Room ("DUMMY ROOM");
-        attic = new Room ("DUMMY ROOM");
+        porchFront = new Room("The front porch of a scary place");
+        foyerGrand = new Room("The gand foyer of a scary place");
+        hallDining = new Room("The dining hall of a scary place");
+        roomSun = new Room("The sun room of a scary place");
+        study = new Room("The study of a scary place");
+        kitchen = new Room ("kitchen");
+        cellar = new Room ("cellar");
+        gardenGrand = new Room ("garden");
+        graveyard = new Room ("grave");
+        mausoleum = new Room ("maus");
+        hallwayUpstairs = new Room ("hallway");
+        closetStorage = new Room ("closet");
+        bedroomMaster = new Room ("masterbed");
+        bathroomMaster = new Room ("masterbath");
+        terrace = new Room ("terrace");
+        bedroomGuest = new Room ("guestbed");
+        bathroomGuest = new Room ("guestbath");
+        attic = new Room ("attic");
         
         // initialise room exits
-        porchFront.setExit("north", foyerGrand);
+        porchFront.setExit("North", foyerGrand);
         
-        foyerGrand.setExit("north east", hallwayUpstairs);
-        foyerGrand.setExit("north west", hallwayUpstairs);
-        foyerGrand.setExit("west", hallDining);
-        foyerGrand.setExit("east", roomSun);
+        foyerGrand.setExit("NorthEast", hallwayUpstairs);
+        foyerGrand.setExit("NorthWest", hallwayUpstairs);
+        foyerGrand.setExit("West", hallDining);
+        foyerGrand.setExit("East", roomSun);
         
-        hallDining.setExit("east", foyerGrand);
-        hallDining.setExit("north", kitchen);
+        hallDining.setExit("East", foyerGrand);
+        hallDining.setExit("North", kitchen);
         
-        kitchen.setExit("south", hallDining);
-        kitchen.setExit("west", cellar);
-        kitchen.setExit("north", gardenGrand);
+        kitchen.setExit("South", hallDining);
+        kitchen.setExit("West", cellar);
+        kitchen.setExit("North", gardenGrand);
         
-        cellar.setExit("east", kitchen);
+        cellar.setExit("East", kitchen);
         
-        roomSun.setExit("west", foyerGrand);
-        roomSun.setExit("north", study);
+        roomSun.setExit("West", foyerGrand);
+        roomSun.setExit("North", study);
         
-        study.setExit("south", roomSun);
-        study.setExit("north west", gardenGrand);
+        study.setExit("South", roomSun);
+        study.setExit("North West", gardenGrand);
         
-        gardenGrand.setExit("south west", kitchen);
-        gardenGrand.setExit("south east", study);
-        gardenGrand.setExit("east", graveyard);
+        gardenGrand.setExit("SouthWest", kitchen);
+        gardenGrand.setExit("SouthEast", study);
+        gardenGrand.setExit("East", graveyard);
         
-        graveyard.setExit("west", gardenGrand);
-        graveyard.setExit("east", mausoleum);
+        graveyard.setExit("West", gardenGrand);
+        graveyard.setExit("East", mausoleum);
         
-        mausoleum.setExit("west", graveyard);
+        mausoleum.setExit("West", graveyard);
         
-        hallwayUpstairs.setExit("north", closetStorage);
-        hallwayUpstairs.setExit("north east", bedroomMaster);
-        hallwayUpstairs.setExit("up", attic);
-        hallwayUpstairs.setExit("north west", bedroomGuest);
-        hallwayUpstairs.setExit("sout west", foyerGrand);
-        hallwayUpstairs.setExit("south east", foyerGrand);
+        hallwayUpstairs.setExit("North", closetStorage);
+        hallwayUpstairs.setExit("NorthEast", bedroomMaster);
+        hallwayUpstairs.setExit("Up", attic);
+        hallwayUpstairs.setExit("NorthWest", bedroomGuest);
+        hallwayUpstairs.setExit("soutWest", foyerGrand);
+        hallwayUpstairs.setExit("SouthEast", foyerGrand);
         
-        attic.setExit("down", hallwayUpstairs);
+        attic.setExit("Down", hallwayUpstairs);
         
-        closetStorage.setExit("south", hallwayUpstairs);
+        closetStorage.setExit("South", hallwayUpstairs);
         
-        bedroomMaster.setExit("south", hallwayUpstairs);
-        bedroomMaster.setExit("east", bathroomMaster);
-        bedroomMaster.setExit("north", terrace);
+        bedroomMaster.setExit("South", hallwayUpstairs);
+        bedroomMaster.setExit("East", bathroomMaster);
+        bedroomMaster.setExit("North", terrace);
         
-        terrace.setExit("south", bedroomMaster);
+        terrace.setExit("South", bedroomMaster);
         terrace.setExit("down", gardenGrand);
         
-        bathroomMaster.setExit("west", bedroomMaster);
+        bathroomMaster.setExit("West", bedroomMaster);
         
-        bedroomGuest.setExit("south", hallwayUpstairs);
-        bedroomGuest.setExit("west", bathroomGuest);
+        bedroomGuest.setExit("South", hallwayUpstairs);
+        bedroomGuest.setExit("West", bathroomGuest);
         
-        bathroomGuest.setExit("east", bedroomGuest);
+        bathroomGuest.setExit("East", bedroomGuest);
         
         
         
