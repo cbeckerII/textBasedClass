@@ -58,6 +58,7 @@ public class Game
         attic = new Room ("attic");
         
         // initialise room exits
+        porchFront.setName("Front Porch");
         porchFront.setExit("North", foyerGrand);
         
         foyerGrand.setExit("NorthEast", hallwayUpstairs);
@@ -173,6 +174,10 @@ public class Game
             case GO:
                 goRoom(command);
                 break;
+                
+            case SMELL:
+                smellThing(command);
+                break;
 
             case QUIT:
                 wantToQuit = quit(command);
@@ -230,8 +235,11 @@ public class Game
             return;
         }
         
-        if (currentRoom.equals(porchFront)){
-            System.out.println("Smelly");
+        else {
+            String name = currentRoom.getName();
+                if (name.equals("Front Porch"))
+                System.out.println("Smelly");
+                return;
         }
     }
     
