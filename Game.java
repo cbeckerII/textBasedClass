@@ -38,8 +38,8 @@ public class Game
         mausoleum, hallwayUpstairs, attic, closetStorage, bedroomMaster, bathroomMaster, terrace, bedroomGuest, bathroomGuest;
        
         // create the rooms
-        porchFront = new Room("The front porch of a scary place");
-        foyerGrand = new Room("The gand foyer of a scary place");
+        porchFront = new Room("on the front porch of an intimidating mansion with various flowers spread about. It is currently raining.");
+        foyerGrand = new Room("in gand foyer of this beautiful mansion. Above your head is a chandelier.");
         hallDining = new Room("The dining hall of a scary place");
         roomSun = new Room("The sun room of a scary place");
         study = new Room("The study of a scary place");
@@ -58,7 +58,7 @@ public class Game
         attic = new Room ("attic");
         
         // initialise room exits
-        porchFront.setName("Front Porch");
+        
         porchFront.setExit("North", foyerGrand);
         
         foyerGrand.setExit("NorthEast", hallwayUpstairs);
@@ -115,7 +115,43 @@ public class Game
         
         bathroomGuest.setExit("East", bedroomGuest);
         
+        //Initializes room names so they can be called for easy reference.
         
+        porchFront.setName("Front Porch");
+        
+        foyerGrand.setName("Grand Foyer");
+        
+        hallDining.setName("Dining Hall");
+        
+        cellar.setName("Cellar");
+        
+        kitchen.setName("Kitchen");
+        
+        roomSun.setName("Sun Room");
+        
+        study.setName("Study");
+        
+        gardenGrand.setName("Grand Garden");
+        
+        graveyard.setName("Graveyard");
+        
+        mausoleum.setName("Mausoleum");
+        
+        hallwayUpstairs.setName("Upstairs Hallway");
+        
+        attic.setName("Attic");
+        
+        closetStorage.setName("Storage Closet");
+        
+        bedroomMaster.setName("Master Bedroom");
+        
+        terrace.setName("Terrace");
+        
+        bathroomMaster.setName("Master Bathroom");
+        
+        bedroomGuest.setName("Guest Bedroom");
+        
+        bathroomGuest.setName("Guest Bathroom");
         
         currentRoom = porchFront;  // start game outside
     }
@@ -230,13 +266,15 @@ public class Game
     
     private void smellThing(Command command)
     {
+        String name = currentRoom.getName();
         if (!command.hasSecondWord()){
-            System.out.println("Smell what?");
-            return;
+            
+                if (name.equals("Front Porch"))
+                System.out.println("The FRONT PORCH smells of Lilacs and Roses with a hint of wet dog.");
+                return;
         }
         
         else {
-            String name = currentRoom.getName();
                 if (name.equals("Front Porch"))
                 System.out.println("Smelly");
                 return;
