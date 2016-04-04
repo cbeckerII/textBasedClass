@@ -166,46 +166,61 @@ public class Game
         //Initializes objects (Name, Description, Scent, Taste, Use, Hit)
         pendant = new Objects("Pendant", "An old pendant.", "It smells like brass.", "It tastes rather metallic.", "There is an old photo inside of the pendant.", "The metallic exterior hurts your hand as you punch it.");
                 
-        watch = new Objects("Pocket Watch", "A rusted gold pocket watch.", "It smells of memories, but seriously it smells like metal.", "You can taste how stupid it is to be licking a pocket watch.", 
+        watch = new Objects("Watch", "A rusted gold pocket watch.", "It smells of memories, but seriously it smells like metal.", "You can taste how stupid it is to be licking a pocket watch.", 
         "The pocket watch seems to be stuck on 11:59.", "Hitting the watch appears to have little affect on it.");
                    
         key = new Objects("Key", "A shiny brass key.", "This key smells an awful lot like rotting carcass.", "The key tastes inconceivably awful. You gag.", 
         "You take the key. You now have a key.", "You hurt yourself by punching the key. Congratulations genius!");
         
-        knife = new Objects("Knife", "A sharp and smelly knife.", "The knife smells lovely like fresh cut roses", "There is no way you're going to lick this knife. You might cut yourself.",
+        knife = new Objects("Knife", "A sharp and smelly knife coated with blood.", "The knife smells lovely like fresh cut roses", "There is no way you're going to lick this knife. You might cut yourself.",
         "You take the knife. You have a knife now.", "You decide punching a knife wouldn't be the smartest thing you could do.");             
         
-        carcass = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        carcass = new Objects("Carcass", "There is a corpse, with a sword run through it. It is unrecognizable.", "The carcass absolutely reeks, it must have been here for weeks.", "You'd have to be crazy to lick that. No. Ew. No.", "Use", "Hit");
         
-        chair = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        chair = new Objects("Chair", "An Oak chair with a nice velvet cushion.", "The chair smells like the food that may have been laid at the table.", "The chair tastes rather woodlike.", "You sit down briefly before feeling uncomfortable and standing right back up.", "You punch the chair. Nothing Happens.");
         
-        armor = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        armor = new Objects("Armor", "Description", "Scent", "Taste", "Use", "You kick the armor and hurt your foot stumbling about.");
         
-        camera = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        camera = new Objects("Camera", "Description", "Scent", "Taste", "Use", "You punch the camera, but its sharp corners indent your knuckles bruising them.");
         
-        chemicals = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        chemicals = new Objects("Chemicals", "Description", "Scent", "Taste", "Use", "You hit the bottle of chemicals. Nothing happened.");
         
-        puzzleHintOne = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        puzzleHintOne = new Objects("Letter", "Description", "Scent", "Taste", "Use", "Why would you punch a letter?");
         
-        puzzleHintTwo = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        puzzleHintTwo = new Objects("Parchment", "Description", "Scent", "Taste", "Use", "Why would you punch parchment?");
         
-        puzzleHintThree = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        puzzleHintThree = new Objects("Mail", "Description", "Scent", "Taste", "Use", "Why would you punch mail?");
         
-        flowers = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        flowers = new Objects("Flowers", "Description", "Scent", "Taste", "Use", "You punch and kick flowers to feel better about your sad existance.");
         
-        toiletMaster = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        toiletMaster = new Objects("Toilet", "A toilet that appears to never have been flushed, nor cleaned in months.", "It smells like crap. Literally.", "Why on God's green earch would you even think of that? NO!", "You 'use' the toilet.", "You punch the porcelain throne. Ow.");
         
-        sinkGuest = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        sinkGuest = new Objects("Sink", "The sink's hot water lever seems to be broken. Overall it looks functional though.", "The sink smells like vomit. Almost as if someone had previously vomitted in it, and then rinsed it out.", "You don't think that's a good idea.", "You wash your hands with cold water.", "You punch the sink. Yeah! You show it who's boss.");
         
-        tombStone = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        tombStone = new Objects("Tombstone", "Description", "Scent", "Taste", "Use", "You hurt yourself hitting the tombstone, but it seems to be unaffected.");
         
-        rope = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        rope = new Objects("Rope", "Description", "Scent", "Taste", "Use", "Why would you hit a rope?");
         
-        wardrobe = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        wardrobe = new Objects("Wardrobe", "Description", "Scent", "Taste", "Use", "You punch the wardrobe hurting your hand.");
         
         //Sets what objects should be in which rooms ascociated via room name.
-        
+                      
         knife.setLocates("Grand Foyer", watch);
+        
+        chair.setLocates("Grand Foyer", watch);
+        chair.setLocates("Kitchen", key);
+        
+        key.setLocates("Dining Hall", chair);
+        
+        watch.setLocates("Dining Hall", chair);
+        watch.setLocates("Upstairs Hallway", armor);
+        watch.setLocates("Sun Room", camera);
+        
+        camera.setLocates("Grand Foyer", watch);
+        camera.setLocates("Study", puzzleHintOne);
+        
+        puzzleHintOne.setLocates("Sun Room", camera);
+        puzzleHintOne.setLocates("Grand Garden", flowers);
         
         currentObject = knife;
     }
@@ -322,17 +337,22 @@ public class Game
 
         String direction = command.getSecondWord();
         // This sets "title" equal to the current room which will check to see if the next room should have the object.
-        String title = currentRoom.getName();
+        
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
-        Objects nextObject = currentObject.getNextObject(title);
+        
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
             currentRoom = nextRoom;
+            
+            String title = currentRoom.getName();
+            Objects nextObject = currentObject.getNextObject(title);
             currentObject = nextObject;
+            System.out.println(currentRoom.getName());
+            System.out.println(currentObject.getName());
             System.out.println(currentRoom.getLongDescription());
         }
     }
@@ -345,7 +365,7 @@ public class Game
         }
         
         else {
-                if (currentRoom.getName().equals("Front Porch") && command.getSecondWord().equalsIgnoreCase("knife")){
+                if (command.getSecondWord().equalsIgnoreCase(currentObject.getName())){
                     System.out.println(currentObject.getScent());
                     return;
                 }
@@ -359,6 +379,13 @@ public class Game
         System.out.println("Lick what?");
         return;
         }
+        
+        else{
+            if (command.getSecondWord().equalsIgnoreCase(currentObject.getName())){
+                    System.out.println(currentObject.getTaste());
+                    return;
+                }
+        }
     }
     
     private void hit(Command command)
@@ -366,6 +393,13 @@ public class Game
         if(!command.hasSecondWord()){
             System.out.println("Hit what?");
             return;
+        }
+        
+        else{
+        if (command.getSecondWord().equalsIgnoreCase(currentObject.getName())){
+                    System.out.println(currentObject.getHit());
+                    return;
+                }
         }
     }
     
@@ -375,6 +409,12 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
             return;
         }
+        else{
+            if (command.getSecondWord().equalsIgnoreCase(currentObject.getName())){
+                    System.out.println(currentObject.getScent());
+                    return;
+                }
+        }
     }
     
     private void use(Command command)
@@ -382,6 +422,13 @@ public class Game
         if(!command.hasSecondWord()){
             System.out.println("Use what?");
             return;
+        }
+        
+        else{
+        if (command.getSecondWord().equalsIgnoreCase(currentObject.getName())){
+                    System.out.println(currentObject.getScent());
+                    return;
+                }
         }
     }
     
