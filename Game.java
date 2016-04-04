@@ -21,11 +21,12 @@ public class Game
     private Room currentRoom;
         
     /**
-     * Create the game and initialise its internal map.
+     * Create the game and initialise its internal map (AND OBJECTS).
      */
     public Game() 
     {
         createRooms();
+        createObjects();
         parser = new Parser();
     }
 
@@ -38,24 +39,24 @@ public class Game
         mausoleum, hallwayUpstairs, attic, closetStorage, bedroomMaster, bathroomMaster, terrace, bedroomGuest, bathroomGuest;
        
         // create the rooms
-        porchFront = new Room("on the front porch of an intimidating mansion with various flowers spread about. It is currently raining.");
-        foyerGrand = new Room("in gand foyer of this beautiful mansion. Above your head is a chandelier.");
-        hallDining = new Room("The dining hall of a scary place");
-        roomSun = new Room("The sun room of a scary place");
-        study = new Room("The study of a scary place");
-        kitchen = new Room ("kitchen");
-        cellar = new Room ("cellar");
-        gardenGrand = new Room ("garden");
-        graveyard = new Room ("grave");
-        mausoleum = new Room ("maus");
-        hallwayUpstairs = new Room ("hallway");
-        closetStorage = new Room ("closet");
-        bedroomMaster = new Room ("masterbed");
-        bathroomMaster = new Room ("masterbath");
-        terrace = new Room ("terrace");
-        bedroomGuest = new Room ("guestbed");
-        bathroomGuest = new Room ("guestbath");
-        attic = new Room ("attic");
+        porchFront = new Room("on the front porch of an intimidating mansion with various flowers spread about. It is currently raining");
+        foyerGrand = new Room("in the grand foyer of this beautiful mansion. Above your head is a chandelier");
+        hallDining = new Room("standing in the dining hall");
+        roomSun = new Room("in what appears to be a sun room... that is if there were any sun");
+        study = new Room("within a study cluttered with several books and other various junk");
+        kitchen = new Room ("inside the kitchen, there are various animal carcasses scattered about");
+        cellar = new Room ("in a dark cellar, but you can make out that there are several-hundred wine bottles behind a thick pane of glass");
+        gardenGrand = new Room ("standing in a garden populated by a variety of foliage and insects");
+        graveyard = new Room ("within a graveyard on the property. It is strange that there are so many tomb stones");
+        mausoleum = new Room ("inside of a mausoleum. It is quite spooky");
+        hallwayUpstairs = new Room ("standing within a hallway");
+        closetStorage = new Room ("in a closet. Why?");
+        bedroomMaster = new Room ("inside of the master bedroom. The bed is quite lovely draped in red silk sheets");
+        bathroomMaster = new Room ("in the master bathroom. It doesn't appear to have been cleaned in years");
+        terrace = new Room ("standing atop the terrace. There seems to be a patch of daisies you could land in if you needed to jump off safely");
+        bedroomGuest = new Room ("in the guest bedroom. It is not quite as nice as you would imagine... there isn't even a bed, just a wardrobe");
+        bathroomGuest = new Room ("in the guest bathroom. It at least has a toilet and shower. It also appears to not be clean");
+        attic = new Room ("in the attic. It's very difficult to see up here at the moment");
         
         // initialise room exits
         
@@ -155,7 +156,18 @@ public class Game
         
         currentRoom = porchFront;  // start game outside
     }
-
+    
+    private void createObjects()
+    {
+        Objects watch, pendant;
+        
+        //Initializes objects
+        pendant = new Objects("Pendant", "An old pendant.");
+        watch = new Objects("Pocket Watch", "A rusted gold pocket watch.");
+        
+        
+    }
+    
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -180,8 +192,8 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Welcome to the mansion of Count Laurel the Fourth!");
+        System.out.println("This mansion is so old that the townsfolk don't remember it ever not being here.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -232,7 +244,7 @@ public class Game
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("around the mansion.");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
@@ -269,15 +281,18 @@ public class Game
         String name = currentRoom.getName();
         if (!command.hasSecondWord()){
             
-                if (name.equals("Front Porch"))
-                System.out.println("The FRONT PORCH smells of Lilacs and Roses with a hint of wet dog.");
-                return;
+                if (name.equals("Front Porch")){
+                    System.out.println("The front porch smells of Lilacs and Roses with a hint of wet dog.");
+                    return;
+                }
+                    
         }
         
         else {
-                if (name.equals("Front Porch"))
-                System.out.println("Smelly");
-                return;
+                if (name.equals("Front Porch")){
+                    System.out.println("Smelly");
+                    return;
+                }
         }
     }
     
