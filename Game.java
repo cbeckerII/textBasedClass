@@ -179,29 +179,29 @@ public class Game
         
         chair = new Objects("Chair", "An Oak chair with a nice velvet cushion.", "The chair smells like the food that may have been laid at the table.", "The chair tastes rather woodlike.", "You sit down briefly before feeling uncomfortable and standing right back up.", "You punch the chair. Nothing Happens.");
         
-        armor = new Objects("Armor", "Description", "Scent", "Taste", "Use", "You kick the armor and hurt your foot stumbling about.");
+        armor = new Objects("Armor", "Description", "It smeels like armor. Metal.", "Why would you lick that?", "You shine the armor and look at your reflection ion it. Aren't you good lookin?", "You kick the armor and hurt your foot stumbling about.");
         
-        camera = new Objects("Camera", "Description", "Scent", "Taste", "Use", "You punch the camera, but its sharp corners indent your knuckles bruising them.");
+        camera = new Objects("Camera", "An old timey camera.", "It smells like vanilla?", "You decide it'd be stupid to lick that and dont.", "Use", "You punch the camera, but its sharp corners indent your knuckles bruising them.");
         
-        chemicals = new Objects("Chemicals", "Description", "Scent", "Taste", "Use", "You hit the bottle of chemicals. Nothing happened.");
+        chemicals = new Objects("Chemicals", "A variety of cleaning solutions.", "It smells like bleach.", "You decide it'd be dumb to lick that.", "You pour some cleaning solution out. Nothing extravagent happens.", "You hit the bottle of chemicals. Nothing happened.");
         
-        puzzleHintOne = new Objects("Letter", "Description", "Scent", "Taste", "Use", "Why would you punch a letter?");
+        puzzleHintOne = new Objects("Letter", "The letter reads that the answer is found within yourself.", "Smells like paper.", "Taste", "The paper resists your advances to 'use' it.", "Why would you punch a letter?");
         
-        puzzleHintTwo = new Objects("Parchment", "Description", "Scent", "Taste", "Use", "Why would you punch parchment?");
+        puzzleHintTwo = new Objects("Parchment", "The parchment says that the heart holds the key.", "Smells like paper... that someone stained with coffee and other various things.", "You lick the parchment. Feel accomplished?", "You attempt to use the letter, but it don't need no man. Nothing happens.", "Why would you punch parchment?");
         
-        puzzleHintThree = new Objects("Mail", "Description", "Scent", "Taste", "Use", "Why would you punch mail?");
+        puzzleHintThree = new Objects("Mail", "The mail reads that the answer you see is 'less than three', whatever that means.", "Smells like paper", "You lick the mail. The sticky bit still has flavor.", "You attempt to 'use' the mail but it isn't interested.", "Why would you punch mail?");
         
-        flowers = new Objects("Flowers", "Description", "Scent", "Taste", "Use", "You punch and kick flowers to feel better about your sad existance.");
+        flowers = new Objects("Flowers", "There is a variety of flowers, all of which are wet.", "Your nose is assulted by a variety of flowers.", "You are not sure if these are poisonous so you decide not to.", "You pick one of the hundreds of flowers, but it wilts in your hand. Odd.", "You punch and kick flowers to feel better about your sad existance.");
         
         toiletMaster = new Objects("Toilet", "A toilet that appears to never have been flushed, nor cleaned in months.", "It smells like crap. Literally.", "Why on God's green earch would you even think of that? NO!", "You 'use' the toilet.", "You punch the porcelain throne. Ow.");
         
         sinkGuest = new Objects("Sink", "The sink's hot water lever seems to be broken. Overall it looks functional though.", "The sink smells like vomit. Almost as if someone had previously vomitted in it, and then rinsed it out.", "You don't think that's a good idea.", "You wash your hands with cold water.", "You punch the sink. Yeah! You show it who's boss.");
         
-        tombStone = new Objects("Tombstone", "Description", "Scent", "Taste", "Use", "You hurt yourself hitting the tombstone, but it seems to be unaffected.");
+        tombStone = new Objects("Tombstone", "A tombstone with the inscriptions on it scrawled out.", "It rocks that you're trying to smell this tombstone, but it's ineffective", "It tastes rather stoney. What a hard thing to descern.", "You don't know how you'd use that per say.", "You hurt yourself hitting the tombstone, but it seems to be unaffected.");
         
-        rope = new Objects("Rope", "Description", "Scent", "Taste", "Use", "Why would you hit a rope?");
+        rope = new Objects("Rope", "A rope coiled up.", "Smells like hemp.", "Tastes like something unfamiliar.", "The rope is glued in place. What a cruel joke.", "Why would you hit a rope?");
         
-        wardrobe = new Objects("Wardrobe", "Description", "Scent", "Taste", "Use", "You punch the wardrobe hurting your hand.");
+        wardrobe = new Objects("Wardrobe", "A tall Oak wardrobe.", "Smells like wood.", "Tastes like a cheesy kid's book.", "The doors are stuck.", "You punch the wardrobe hurting your hand.");
         
         //Sets what objects should be in which rooms ascociated via room name.
                       
@@ -211,6 +211,17 @@ public class Game
         chair.setLocates("Kitchen", key);
         
         key.setLocates("Dining Hall", chair);
+        key.setLocates("Cellar", carcass);
+        key.setLocates("Grand Garden", flowers);
+        
+        flowers.setLocates("Sun Room", camera);
+        flowers.setLocates("Graveyard", tombStone);
+        flowers.setLocates("Kitchen", key);
+        
+        tombStone.setLocates("Grand Garden", flowers);
+        tombStone.setLocates("Mausoleum", puzzleHintThree);
+        
+        puzzleHintThree.setLocates("Graveyard", tombStone);
         
         watch.setLocates("Dining Hall", chair);
         watch.setLocates("Upstairs Hallway", armor);
@@ -218,6 +229,30 @@ public class Game
         
         camera.setLocates("Grand Foyer", watch);
         camera.setLocates("Study", puzzleHintOne);
+        
+        armor.setLocates("Grand Foyer", watch);
+        armor.setLocates("Storage Closet", chemicals);
+        armor.setLocates("Guest Bedroom",wardrobe);
+        armor.setLocates("Master Bedroom", puzzleHintTwo);
+        armor.setLocates("Attic", pendant);
+        
+        pendant.setLocates("Upstairs Hallway", armor);
+        
+        chemicals.setLocates("Upstairs Hallway", armor);
+        
+        puzzleHintTwo.setLocates("Upstairs Hallway", armor);
+        puzzleHintTwo.setLocates("Master Bathroom", toiletMaster);
+        puzzleHintTwo.setLocates("Terrace", rope);
+        
+        toiletMaster.setLocates("Master Bedroom", puzzleHintTwo);
+        
+        rope.setLocates("Master Bedroom", puzzleHintTwo);
+        rope.setLocates("Grand Garden", flowers);
+        
+        wardrobe.setLocates("Upstairs Hallway", armor);
+        wardrobe.setLocates("Guest Bathroom", sinkGuest);
+        
+        sinkGuest.setLocates("Guest Bedroom", wardrobe);
         
         puzzleHintOne.setLocates("Sun Room", camera);
         puzzleHintOne.setLocates("Grand Garden", flowers);
