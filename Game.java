@@ -1,3 +1,4 @@
+import java.util.Date;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -14,12 +15,14 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2011.08.10
  */
-
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
     private Objects currentObject;
+    private Date date = new Date();
+    public long time;
+    public boolean win = false;
         
     /**
      * Create the game and initialise its internal map (AND OBJECTS).
@@ -28,9 +31,11 @@ public class Game
     {
         createRooms();
         createObjects();
+        time = date.getTime();
         parser = new Parser();
     }
-
+    
+    
     /**
      * Create all the rooms and link their exits together.
      */
@@ -266,16 +271,26 @@ public class Game
     public void play() 
     {            
         printWelcome();
-
+        
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
                 
         boolean finished = false;
+        
+        // This initializes the movement/ command counter
+        int moveCount = 0;
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
+            //upticks the command/ move count
+            moveCount++;
+            if (win == true){
+                finished = true;
+            }
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        long completeTime = date.getTime();
+        System.out.println("You conquered the mansion in " + moveCount + " moves. Congratulations!");
+        System.out.println("It only took you " + ((completeTime - time/1000) + " Milliseconds"));
     }
 
     /**
@@ -386,8 +401,7 @@ public class Game
             String title = currentRoom.getName();
             Objects nextObject = currentObject.getNextObject(title);
             currentObject = nextObject;
-            System.out.println(currentRoom.getName());
-            System.out.println(currentObject.getName());
+            System.out.println("The is a(n) " + currentObject.getName() + ".");
             System.out.println(currentRoom.getLongDescription());
         }
     }
@@ -460,7 +474,12 @@ public class Game
         }
         
         else{
-        if (command.getSecondWord().equalsIgnoreCase(currentObject.getName())){
+            if(command.getSecondWord().equalsIgnoreCase("love") && currentRoom.getName().equals("Mausoleum"))
+            {
+                win = true;
+            }
+            
+            else if (command.getSecondWord().equalsIgnoreCase(currentObject.getName())){
                     System.out.println(currentObject.getScent());
                     return;
                 }
