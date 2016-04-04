@@ -37,7 +37,7 @@ public class Room
         String name = null;
         exits = new HashMap<String, Room>();
     }
-
+    
     /**
      * Define an exit from this room.
      * @param direction The direction of the exit.

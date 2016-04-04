@@ -1,4 +1,5 @@
 import java.util.Set;
+import java.util.HashMap;
 import java.util.Iterator;
 /**
  * Write a description of class Objects here.
@@ -9,6 +10,7 @@ import java.util.Iterator;
 public class Objects
 {
     private String name;
+    private HashMap <String, Objects> locates;
     private String description;
     private String scent;
     private String taste;
@@ -18,11 +20,16 @@ public class Objects
     public Objects(String name, String description, String scent, String taste, String use, String hit)
     {
         this.name = name;
+        locates = new HashMap<String, Objects>();
         this.description = description;
         this.scent = scent;
         this.taste = taste;
         this.use = use;
         this.hit = hit;
+    }
+    
+    public void setLocates(String title, Objects next){
+        locates.put(title, next);
     }
     
     //Returns the name of the object
@@ -55,9 +62,14 @@ public class Objects
     {
         return use;
     }
-    
+   
     public String getHit()
     {
         return hit;
+    }
+    
+    public Objects getNextObject(String title)
+    {
+        return locates.get(title);
     }
 }

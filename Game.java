@@ -40,7 +40,7 @@ public class Game
         mausoleum, hallwayUpstairs, attic, closetStorage, bedroomMaster, bathroomMaster, terrace, bedroomGuest, bathroomGuest;
        
         // create the rooms
-        porchFront = new Room("The front porch smells of Lilacs and Roses with a hint of wet dog.", "on the front porch of an intimidating mansion with various flowers spread about. It is currently raining");
+        porchFront = new Room("The front porch smells of Lilacs and Roses with a hint of wet dog.", "on the front porch of an intimidating mansion with various flowers spread about. There is a knife on the porch. It is currently raining");
         foyerGrand = new Room("The smell of this room is giving you vibes of your grandparent's summer home.", "in the grand foyer of this beautiful mansion. Above your head is a chandelier");
         hallDining = new Room("It smells quite nice in here like freshly prepared food.", "standing in the dining hall");
         roomSun = new Room("This room smells like someone caked the walls in sunscreen.", "in what appears to be a sun room... that is if there were any sun");
@@ -160,7 +160,8 @@ public class Game
     
     private void createObjects()
     {
-        Objects watch, pendant, key, knife;
+        Objects watch, pendant, key, knife, carcass, chair, armor, camera, chemicals, puzzleHintOne, puzzleHintTwo, puzzleHintThree, flowers,
+        toiletMaster, sinkGuest, tombStone, rope, wardrobe;
         
         //Initializes objects (Name, Description, Scent, Taste, Use, Hit)
         pendant = new Objects("Pendant", "An old pendant.", "It smells like brass.", "It tastes rather metallic.", "There is an old photo inside of the pendant.", "The metallic exterior hurts your hand as you punch it.");
@@ -172,9 +173,41 @@ public class Game
         "You take the key. You now have a key.", "You hurt yourself by punching the key. Congratulations genius!");
         
         knife = new Objects("Knife", "A sharp and smelly knife.", "The knife smells lovely like fresh cut roses", "There is no way you're going to lick this knife. You might cut yourself.",
-        "You take the knife. You have a knife now.", "You decide punching a knife wouldn't be the smartest thing you could do.");
+        "You take the knife. You have a knife now.", "You decide punching a knife wouldn't be the smartest thing you could do.");             
         
-        currentObject = knife;                
+        carcass = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        chair = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        armor = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        camera = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        chemicals = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        puzzleHintOne = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        puzzleHintTwo = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        puzzleHintThree = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        flowers = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        toiletMaster = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        sinkGuest = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        tombStone = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        rope = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        wardrobe = new Objects("Name", "Description", "Scent", "Taste", "Use", "Hit");
+        
+        //Sets what objects should be in which rooms ascociated via room name.
+        
+        knife.setLocates("Grand Foyer", watch);
+        
+        currentObject = knife;
     }
     
     /**
@@ -236,8 +269,16 @@ public class Game
                 examine(command);
                 break;
                 
+            case HIT:
+                hit(command);
+                break;
+                
             case SMELL:
                 smellThing(command);
+                break;
+                
+            case USE:
+                use(command);
                 break;
                 
             case TASTE:
@@ -280,19 +321,19 @@ public class Game
         }
 
         String direction = command.getSecondWord();
-
+        // This sets "title" equal to the current room which will check to see if the next room should have the object.
+        String title = currentRoom.getName();
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
+        Objects nextObject = currentObject.getNextObject(title);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
             currentRoom = nextRoom;
+            currentObject = nextObject;
             System.out.println(currentRoom.getLongDescription());
-            if(currentRoom.getName().equals("Dining Hall")){
-            System.out.println(knife.getName());
-            }
         }
     }
     
@@ -304,9 +345,8 @@ public class Game
         }
         
         else {
-                if (currentRoom.getName().equals("Front Porch") && command.getSecondWord().equals("Knife")){
-                    currentObject.getScent();
-                    System.out.println();
+                if (currentRoom.getName().equals("Front Porch") && command.getSecondWord().equalsIgnoreCase("knife")){
+                    System.out.println(currentObject.getScent());
                     return;
                 }
         }
@@ -317,12 +357,36 @@ public class Game
         String name = currentRoom.getName();
         if(!command.hasSecondWord()){
         System.out.println("Lick what?");
+        return;
+        }
+    }
+    
+    private void hit(Command command)
+    {
+        if(!command.hasSecondWord()){
+            System.out.println("Hit what?");
+            return;
         }
     }
     
     private void examine(Command command)
     {
+        if(!command.hasSecondWord()){
+            System.out.println(currentRoom.getLongDescription());
+            return;
+        }
     }
+    
+    private void use(Command command)
+    {
+        if(!command.hasSecondWord()){
+            System.out.println("Use what?");
+            return;
+        }
+    }
+    
+    
+    
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
