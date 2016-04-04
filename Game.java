@@ -19,6 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Objects currentObject;
         
     /**
      * Create the game and initialise its internal map (AND OBJECTS).
@@ -159,13 +160,21 @@ public class Game
     
     private void createObjects()
     {
-        Objects watch, pendant;
+        Objects watch, pendant, key, knife;
         
-        //Initializes objects (Name, and then Description)
-        pendant = new Objects("Pendant", "An old pendant.");
-        watch = new Objects("Pocket Watch", "A rusted gold pocket watch.");
+        //Initializes objects (Name, Description, Scent, Taste, Use, Hit)
+        pendant = new Objects("Pendant", "An old pendant.", "It smells like brass.", "It tastes rather metallic.", "There is an old photo inside of the pendant.", "The metallic exterior hurts your hand as you punch it.");
+                
+        watch = new Objects("Pocket Watch", "A rusted gold pocket watch.", "It smells of memories, but seriously it smells like metal.", "You can taste how stupid it is to be licking a pocket watch.", 
+        "The pocket watch seems to be stuck on 11:59.", "Hitting the watch appears to have little affect on it.");
+                   
+        key = new Objects("Key", "A shiny brass key.", "This key smells an awful lot like rotting carcass.", "The key tastes inconceivably awful. You gag.", 
+        "You take the key. You now have a key.", "You hurt yourself by punching the key. Congratulations genius!");
         
+        knife = new Objects("Knife", "A sharp and smelly knife.", "The knife smells lovely like fresh cut roses", "There is no way you're going to lick this knife. You might cut yourself.",
+        "You take the knife. You have a knife now.", "You decide punching a knife wouldn't be the smartest thing you could do.");
         
+        currentObject = knife;                
     }
     
     /**
@@ -223,8 +232,16 @@ public class Game
                 goRoom(command);
                 break;
                 
+            case EXAMINE:
+                examine(command);
+                break;
+                
             case SMELL:
                 smellThing(command);
+                break;
+                
+            case TASTE:
+                taste(command);
                 break;
 
             case QUIT:
@@ -273,20 +290,23 @@ public class Game
         else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            if(currentRoom.getName().equals("Dining Hall")){
+            System.out.println(knife.getName());
+            }
         }
     }
     
     private void smellThing(Command command)
     {
-        String name = currentRoom.getName();
         if (!command.hasSecondWord()){   
             System.out.println(currentRoom.getScent());            
             return;
         }
         
         else {
-                if (name.equals("Front Porch")){
-                    System.out.println("Smelly");
+                if (currentRoom.getName().equals("Front Porch") && command.getSecondWord().equals("Knife")){
+                    currentObject.getScent();
+                    System.out.println();
                     return;
                 }
         }
@@ -300,6 +320,9 @@ public class Game
         }
     }
     
+    private void examine(Command command)
+    {
+    }
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
