@@ -39,24 +39,24 @@ public class Game
         mausoleum, hallwayUpstairs, attic, closetStorage, bedroomMaster, bathroomMaster, terrace, bedroomGuest, bathroomGuest;
        
         // create the rooms
-        porchFront = new Room("on the front porch of an intimidating mansion with various flowers spread about. It is currently raining");
-        foyerGrand = new Room("in the grand foyer of this beautiful mansion. Above your head is a chandelier");
-        hallDining = new Room("standing in the dining hall");
-        roomSun = new Room("in what appears to be a sun room... that is if there were any sun");
-        study = new Room("within a study cluttered with several books and other various junk");
-        kitchen = new Room ("inside the kitchen, there are various animal carcasses scattered about");
-        cellar = new Room ("in a dark cellar, but you can make out that there are several-hundred wine bottles behind a thick pane of glass");
-        gardenGrand = new Room ("standing in a garden populated by a variety of foliage and insects");
-        graveyard = new Room ("within a graveyard on the property. It is strange that there are so many tomb stones");
-        mausoleum = new Room ("inside of a mausoleum. It is quite spooky");
-        hallwayUpstairs = new Room ("standing within a hallway");
-        closetStorage = new Room ("in a closet. Why?");
-        bedroomMaster = new Room ("inside of the master bedroom. The bed is quite lovely draped in red silk sheets");
-        bathroomMaster = new Room ("in the master bathroom. It doesn't appear to have been cleaned in years");
-        terrace = new Room ("standing atop the terrace. There seems to be a patch of daisies you could land in if you needed to jump off safely");
-        bedroomGuest = new Room ("in the guest bedroom. It is not quite as nice as you would imagine... there isn't even a bed, just a wardrobe");
-        bathroomGuest = new Room ("in the guest bathroom. It at least has a toilet and shower. It also appears to not be clean");
-        attic = new Room ("in the attic. It's very difficult to see up here at the moment");
+        porchFront = new Room("The front porch smells of Lilacs and Roses with a hint of wet dog.", "on the front porch of an intimidating mansion with various flowers spread about. It is currently raining");
+        foyerGrand = new Room("The smell of this room is giving you vibes of your grandparent's summer home.", "in the grand foyer of this beautiful mansion. Above your head is a chandelier");
+        hallDining = new Room("It smells quite nice in here like freshly prepared food.", "standing in the dining hall");
+        roomSun = new Room("This room smells like someone caked the walls in sunscreen.", "in what appears to be a sun room... that is if there were any sun");
+        study = new Room("The smell of dust and books is all you can make out.", "within a study cluttered with several books and other various junk");
+        kitchen = new Room ("The room is polluted with the smell of rotting carcasses.", "inside the kitchen, there are various animal carcasses scattered about");
+        cellar = new Room ("This room smells heavily of bleach.", "in a dark cellar, but you can make out that there are several-hundred wine bottles behind a thick pane of glass");
+        gardenGrand = new Room ("Your nose is assaulted by the scent of hundreds of wet flowers.", "standing in a garden populated by a variety of foliage and insects");
+        graveyard = new Room ("There isn't much of a particular scent you can make out.", "within a graveyard on the property. It is strange that there are so many tomb stones");
+        mausoleum = new Room ("It smells just like moth balls, and old people. Ew.", "inside of a mausoleum. It is quite spooky");
+        hallwayUpstairs = new Room ("It smells strongly of moth balls and the elderly.", "standing within a hallway");
+        closetStorage = new Room ("It smells like wet dog in here....", "in a closet. Why?");
+        bedroomMaster = new Room ("The room smells overwhelmingly of cigarette smoke.", "inside of the master bedroom. The bed is quite lovely draped in red silk sheets");
+        bathroomMaster = new Room ("Oh god. It smells like nobody has flushed in months.", "in the master bathroom. It doesn't appear to have been cleaned in years");
+        terrace = new Room ("The terrace smells mostly like wet stone. Very earthy.", "standing atop the terrace. There seems to be a patch of daisies you could land in if you needed to jump off safely");
+        bedroomGuest = new Room ("The room has no discernable scent.", "in the guest bedroom. It is not quite as nice as you would imagine... there isn't even a bed, just a wardrobe");
+        bathroomGuest = new Room ("It smells like a wide variety of chemicals.", "in the guest bathroom. It at least has a toilet and shower. It also appears to not be clean");
+        attic = new Room ("You make out what you believe to be the smell of bat crap.", "in the attic. It's very difficult to see up here at the moment");
         
         // initialise room exits
         
@@ -161,7 +161,7 @@ public class Game
     {
         Objects watch, pendant;
         
-        //Initializes objects
+        //Initializes objects (Name, and then Description)
         pendant = new Objects("Pendant", "An old pendant.");
         watch = new Objects("Pocket Watch", "A rusted gold pocket watch.");
         
@@ -279,13 +279,9 @@ public class Game
     private void smellThing(Command command)
     {
         String name = currentRoom.getName();
-        if (!command.hasSecondWord()){
-            
-                if (name.equals("Front Porch")){
-                    System.out.println("The front porch smells of Lilacs and Roses with a hint of wet dog.");
-                    return;
-                }
-                    
+        if (!command.hasSecondWord()){   
+            System.out.println(currentRoom.getScent());            
+            return;
         }
         
         else {
@@ -293,6 +289,14 @@ public class Game
                     System.out.println("Smelly");
                     return;
                 }
+        }
+    }
+    
+    private void taste(Command command)
+    {
+        String name = currentRoom.getName();
+        if(!command.hasSecondWord()){
+        System.out.println("Lick what?");
         }
     }
     

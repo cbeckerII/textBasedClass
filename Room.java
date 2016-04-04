@@ -21,6 +21,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;
     private String name;
+    private String scent;
     // stores exits of this room.
 
     /**
@@ -29,9 +30,10 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String scent, String description) 
     {
         this.description = description;
+        this.scent = scent;
         String name = null;
         exits = new HashMap<String, Room>();
     }
@@ -44,6 +46,11 @@ public class Room
     public void setExit(String direction, Room neighbor) 
     {
         exits.put(direction, neighbor);
+    }
+    
+    public String getScent()
+    {
+    return scent;
     }
     
     public void setName(String name)
