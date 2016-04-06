@@ -1,4 +1,3 @@
-import java.util.Date;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -20,8 +19,8 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private Objects currentObject;
-    private Date date = new Date();
-    public long time;
+    public long startTime;
+    public long endTime;
     public boolean win = false;
         
     /**
@@ -31,11 +30,14 @@ public class Game
     {
         createRooms();
         createObjects();
-        time = date.getTime();
+        setTime();
         parser = new Parser();
     }
     
-    
+    private void setTime(){
+        // used to initialize the time at which the player starts the program in order to later be referenced to measure time elapsed.
+        startTime = System.currentTimeMillis();
+    }
     /**
      * Create all the rooms and link their exits together.
      */
@@ -169,6 +171,7 @@ public class Game
         toiletMaster, sinkGuest, tombStone, rope, wardrobe;
         
         //Initializes objects (Name, Description, Scent, Taste, Use, Hit)
+        //it may seem like a block of text, but makes more sense overall if you know that ahead of time.
         pendant = new Objects("Pendant", "An old pendant.", "It smells like brass.", "It tastes rather metallic.", "There is an old photo inside of the pendant.", "The metallic exterior hurts your hand as you punch it.");
                 
         watch = new Objects("Watch", "A rusted gold pocket watch.", "It smells of memories, but seriously it smells like metal.", "You can taste how stupid it is to be licking a pocket watch.", 
@@ -276,7 +279,6 @@ public class Game
         // execute them until the game is over.
                 
         boolean finished = false;
-        
         // This initializes the movement/ command counter
         int moveCount = 0;
         while (! finished) {
@@ -288,9 +290,17 @@ public class Game
                 finished = true;
             }
         }
-        long completeTime = date.getTime();
+        //Initializes the time elapsed
+        endTime = ((System.currentTimeMillis() - startTime)/1000);
+        // converts time into minutes if needed
+        long minutes = 0;
+        if(endTime>=60)
+        {
+        minutes = (endTime/60);
+        }
+        
         System.out.println("You conquered the mansion in " + moveCount + " moves. Congratulations!");
-        System.out.println("It only took you " + ((completeTime - time/1000) + " Milliseconds"));
+        System.out.println("It only took you " + minutes + " minutes and " + (endTime%60) + " Seconds");
     }
 
     /**
